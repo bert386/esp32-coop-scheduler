@@ -54,5 +54,6 @@ void rtcOnlySleep()
     digitalWrite(POWER_12V, HIGH);
     debugA("Will sleep mode \r\n");
     esp_sleep_enable_timer_wakeup(60 * uS_TO_S_FACTOR);
+    esp_sleep_enable_ext0_wakeup(GPIO_NUM_33, 1); //1 = High, 0 = Low
     esp_deep_sleep_start();
 }

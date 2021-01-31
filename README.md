@@ -14,3 +14,4 @@
 - Light level sensor
 - 12V Motor driver module
 - 4 of Mosfets & 2 proximity sensors
+- 1 of button switch

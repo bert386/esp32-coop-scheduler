@@ -87,28 +87,32 @@
                 <legend class="col-form-label h1">Motors & Proximity Sensors</legend>
                 <fieldset>
                     <div class="form-group row col-12 text-center">
-                        <div class="col-sm-3 col-6 mt-2 text-center">
-                            <input type="checkbox" id="closed-prox" data-toggle="toggle" data-on="Sensor Closed" data-onstyle="success" data-off="Sensor Opened" data-offstyle="warning">
+                        <div class="col-sm-4 col-12 mt-2 text-center">
+                            <input type="checkbox" id="opened-prox" data-toggle="toggle" data-on="DOOR OPEN" data-off="DOOR OPEN" data-onstyle="danger" data-offstyle="secondary">
                             <div class="mt-2">Door Open Sensor</div>
                         </div>
 
-                        <div class="col-sm-3 col-6 mt-2 text-center output-toggle" data-name="backward-toggle">
-                            <input type="checkbox" id="backward-toggle" data-toggle="toggle" data-on="Closing" data-off="Stopped" data-onstyle="warning" data-offstyle="secondary">
+                        <div class="col-sm-4 col-12 mt-2 text-center">
+                            <input type="checkbox" id="in-transit" data-toggle="toggle" data-on="IN TRANSIT" data-off="IN TRANSIT" data-onstyle="warning" data-offstyle="secondary">
                         </div>
 
-                        <div class="col-sm-3 col-6 mt-2 text-center output-toggle" data-name="forward-toggle">
-                            <input type="checkbox" id="forward-toggle" data-toggle="toggle" data-on="Opening" data-off="Stopped" data-onstyle="warning" data-offstyle="secondary">
-                        </div>
-
-                        <div class="col-sm-3 col-6 mt-2 text-center">
-                            <input type="checkbox" id="opened-prox" data-toggle="toggle" data-on="Sensor Closed" data-off="Sensor Opened" data-onstyle="success" data-offstyle="warning">
+                        <div class="col-sm-4 col-12 mt-2 text-center">
+                            <input type="checkbox" id="closed-prox" data-toggle="toggle" data-on="DOOR CLOSED" data-onstyle="success" data-off="DOOR CLOSED" data-offstyle="secondary">
                             <div class="mt-2">Door Close Sensor</div>
                         </div>
                     </div>
 
                     <div class="form-group row col-12 text-center">
-                        <div class="col-12 mt-2 text-center output-toggle" data-name="alert-led">
+                        <div class="col-sm-4 col-4 mt-2 text-center output-toggle" data-name="forward-toggle">
+                            <input type="checkbox" id="forward-toggle" data-toggle="toggle" data-on="Opening" data-off="Stopped" data-onstyle="warning" data-offstyle="secondary">
+                        </div>
+
+                        <div class="col-sm-4 col-4 mt-2 text-center output-toggle" data-name="alert-led">
                             <input type="checkbox" id="alert-led" data-toggle="toggle" data-on="Alert LED On" data-off="Alert LED Off" data-onstyle="danger" data-offstyle="dark">
+                        </div>
+
+                        <div class="col-sm-4 col-4 mt-2 text-center output-toggle" data-name="backward-toggle">
+                            <input type="checkbox" id="backward-toggle" data-toggle="toggle" data-on="Closing" data-off="Stopped" data-onstyle="warning" data-offstyle="secondary">
                         </div>
                     </div>
                 </fieldset>
@@ -357,6 +361,7 @@
                     });
                     const vars = JSON.parse(result);
                     console.log(vars);
+
                     $(`#closed-prox`).bootstrapToggle('enable');
                     if (Boolean(vars.closed_prox)) {
                         $(`#closed-prox`).bootstrapToggle('on', true);
@@ -390,6 +395,10 @@
                                 $(`#backward-toggle`).bootstrapToggle('off', true);
                                 $(`#forward-toggle`).bootstrapToggle('enable');
                                 $(`#forward-toggle`).bootstrapToggle('off', true);
+
+                                $(`#in-transit`).bootstrapToggle('enable');
+                                $(`#in-transit`).bootstrapToggle('off', true);
+                                $(`#in-transit`).bootstrapToggle('disable');
                             }
                             break;
 
@@ -399,6 +408,10 @@
                                 $(`#backward-toggle`).bootstrapToggle('off', true);
                                 $(`#forward-toggle`).bootstrapToggle('enable');
                                 $(`#forward-toggle`).bootstrapToggle('on', true);
+
+                                $(`#in-transit`).bootstrapToggle('enable');
+                                $(`#in-transit`).bootstrapToggle('on', true);
+                                $(`#in-transit`).bootstrapToggle('disable');
                             }
                             break;
 
@@ -408,6 +421,10 @@
                                 $(`#backward-toggle`).bootstrapToggle('on', true);
                                 $(`#forward-toggle`).bootstrapToggle('enable');
                                 $(`#forward-toggle`).bootstrapToggle('off', true);
+
+                                $(`#in-transit`).bootstrapToggle('enable');
+                                $(`#in-transit`).bootstrapToggle('on', true);
+                                $(`#in-transit`).bootstrapToggle('disable');
                             }
                             break;
                     }

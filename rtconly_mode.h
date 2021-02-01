@@ -11,4 +11,4 @@
 #include <Arduino.h>
 
 void rtcOnlyProc();
-void rtcOnlySleep();
+void rtcOnlySleep(uint32_t seconds);

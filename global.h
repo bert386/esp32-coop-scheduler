@@ -19,7 +19,7 @@
 extern uint8_t systemMode;
 extern RTC_DATA_ATTR int bootCount;
 #define uS_TO_S_FACTOR 1000000 /* Conversion factor for micro seconds to seconds */
-
+#define NoRequestTimeMs 60000
 //
 enum SYSTEMMODE
 {

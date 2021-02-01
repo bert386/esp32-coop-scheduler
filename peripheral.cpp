@@ -74,6 +74,7 @@ void init_peripherals()
     digitalWrite(REDALERT, LOW);
 
     //
+    gpio_hold_dis((gpio_num_t)POWER_12V);
     pinMode(POWER_12V, OUTPUT);
     digitalWrite(POWER_12V, LOW);
 }

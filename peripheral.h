@@ -27,7 +27,7 @@
 
 //
 #define DEFAULT_LDR_THRESHOLD 1400
-#define MAXIMUM_MOTORTIME 15000
+#define MAXIMUM_MOTORTIME 30000
 //
 void init_peripherals();
 void stop_motor();

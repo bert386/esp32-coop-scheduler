@@ -239,6 +239,27 @@ void loop()
                             control_machine.transitionTo(forward);
                         }
                     }
+
+                    if (control_machine.isInState(opened) ||
+                        control_machine.isInState(closed) ||
+                        control_machine.isInState(stopped))
+                    {
+                        if (current_time <= wakeup_time)
+                        {
+                            if (millis() - fallen_sleep_time >= NoRequestTimeMs)
+                                rtcOnlySleep(wakeup_time - current_time);
+                        }
+                        else if (current_time <= sleep_time)
+                        {
+                            if (millis() - fallen_sleep_time >= NoRequestTimeMs)
+                                rtcOnlySleep(sleep_time - current_time);
+                        }
+                        else
+                        {
+                            if (millis() - fallen_sleep_time >= NoRequestTimeMs)
+                                rtcOnlySleep(86400 - current_time + wakeup_time);
+                        }
+                    }
                 }
                 else
                 {
@@ -260,6 +281,27 @@ void loop()
                         {
                             debugA("Transition to open from stopped/closed in rtc mode");
                             control_machine.transitionTo(forward);
+                        }
+                    }
+
+                    if (control_machine.isInState(opened) ||
+                        control_machine.isInState(closed) ||
+                        control_machine.isInState(stopped))
+                    {
+                        if (current_time <= sleep_time)
+                        {
+                            if (millis() - fallen_sleep_time >= NoRequestTimeMs)
+                                rtcOnlySleep(sleep_time - current_time);
+                        }
+                        else if (current_time <= wakeup_time)
+                        {
+                            if (millis() - fallen_sleep_time >= NoRequestTimeMs)
+                                rtcOnlySleep(wakeup_time - current_time);
+                        }
+                        else
+                        {
+                            if (millis() - fallen_sleep_time >= NoRequestTimeMs)
+                                rtcOnlySleep(86400 - current_time + sleep_time);
                         }
                     }
                 }
@@ -367,13 +409,6 @@ void loop()
         {
             motor_direction = 0;
             alert_led = false;
-        }
-        else
-        {
-            if (millis() - fallen_sleep_time >= 30000)
-            {
-                rtcOnlySleep();
-            }
         }
     }
     else if (control_machine.isInState(forward))

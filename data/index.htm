@@ -23,9 +23,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>    
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9.7.1/dist/sweetalert2.all.min.js"></script> -->
 
-    <script src="src/moment.min.js"></script>
-    <style type="text/css" media="">
-
+    <!-- <script src="src/moment.min.js"></script> -->
     </style>
 </head>
 
@@ -586,9 +584,8 @@
 
             $(`#sync-time-btn`).click(async() => {
                 // console.log(moment.utc(new Date($(`#local-time`).val())).valueOf() / 1000);
-                // const synctime_epoch = Math.round(new Date($(`#local-time`).val()) / 1000);
-
-                const synctime_epoch = moment.utc(new Date($(`#local-time`).val())).valueOf() / 1000;
+                const synctime_epoch = Math.round(new Date($(`#local-time`).val()) / 1000);
+                // const synctime_epoch = moment.utc(new Date($(`#local-time`).val())).valueOf() / 1000;
                 console.log(synctime_epoch);
                 const {
                     value: confimred
@@ -603,11 +600,18 @@
                 if (!confimred) {
                     return;
                 }
-                $.post(`/synctime`, {
-                    time: synctime_epoch
-                }, response = () => {
-                    console.log(response);
-                });
+
+                try {
+                    const result = await $.ajax({
+                        url: '/synctime',
+                        type: 'POST',
+                        data: {
+                            time: synctime_epoch
+                        }
+                    });
+                } catch (error) {
+                    window.location.href = `/monitor`;
+                }
             });
 
             // $("#show_hide_password a").on('click', function(event) {

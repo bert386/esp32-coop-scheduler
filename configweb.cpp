@@ -23,7 +23,7 @@ AsyncWebServer server(80);
 DNSServer dns;
 AsyncWiFiManager wifiManager(&server, &dns);
 static uint32_t requestedTimeMs = millis();
-const uint32_t NoRequestTimeMs = 300000;
+// const uint32_t NoRequestTimeMs = 60000;
 // Flag to use from web update to reboot the ESP
 bool shouldReboot = false;
 /*****************************************************************************/
@@ -334,8 +334,8 @@ void initConfigWebService()
                                 request->arg(i).c_str());
               }
               AsyncWebParameter *timeArg = request->getParam("time", true);
+              uint32_t timeFromEpoch = timeArg->value().toInt();
               //   uint32_t timeFromEpoch = timeArg->value().toInt() - gmtOffset_sec;
-              uint32_t timeFromEpoch = timeArg->value().toInt() - gmtOffset_sec;
               time_t rtc = timeFromEpoch;
               timeval tv = {rtc, 0};
               settimeofday(&tv, nullptr);
